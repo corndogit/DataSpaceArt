@@ -2,7 +2,7 @@
 A generative art project which generates stylized patterns from data. Written in Python by corndogit for the purpose of
 displaying as an art piece for the Arts Arkade digital arts hub in Swansea.  
 
-![example1](https://cdn.discordapp.com/attachments/533180429625458688/982349341995958332/unknown.png)  
+![example1](https://corndog.s-ul.eu/1ulBHaVN.png)  
 
 ## Overview
 DataSpaceArt is a project for generating patterns with parameters which are altered by data. For this project, weather 
