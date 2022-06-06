@@ -35,8 +35,8 @@ to apply along the length of the curve, the colour of the background, etc.
 
 More possible applications are being explored currently.
 ## Todo
-- [ ] Implement numpy arrays to replace the very long lists created by curves with p > 7
+- [x] Implement numpy arrays to replace the very long lists created by curves with p > 7
 - [ ] Use data from weather JSON to change colour range of the curve using max/min temperature 
 - [ ] Come up with more ways to change the output 
 - [ ] Plan how to take the output from the program and display it (e.g. on a webpage)
-- [ ] Write setup.py script to install dependencies locally
+- [x] Write setup.py script to install dependencies locally

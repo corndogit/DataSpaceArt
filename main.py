@@ -1,6 +1,6 @@
 # from dotenv import load_dotenv
 # from weatherlib import weather
-# import numpy as np
+import numpy as np
 from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
 from colour import Color
@@ -13,15 +13,16 @@ def main():
 
     # Generate Hilbert curve segments
     n = 2
-    p = 7  # above p = 7, render time takes ages due to enormous list sizes
+    p = 6  # above p = 7, render time takes ages due to enormous list sizes
     hilbert_curve = HilbertCurve(p, n)
-    distances = list(range(2**(p*n)))  # todo refactor with numpy arrays
-    points = hilbert_curve.points_from_distances(distances)  # returns Iterable of [x, y] lists of length 'distances'
+    distances = np.arange(2**(p*n))
+    full_distance = len(distances)
+    points = np.asarray(hilbert_curve.points_from_distances(distances))  # returns ndarray of [x, y] points of length 'distances'
 
     # Generate colour range
     start_colour = Color("#006655")  # hard coded here, but could be taken from a dict linking e.g temps to colours
     end_colour = Color("#0000DD")
-    colour_range = list(start_colour.range_to(end_colour, len(distances)))  # todo refactor with numpy arrays
+    colour_range = np.fromiter(start_colour.range_to(end_colour, full_distance), dtype='S8', count=full_distance)
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio
@@ -41,7 +42,7 @@ def main():
             start, end = points[count], points[count + 1]
             xpoints = (start[0], end[0])
             ypoints = (start[1], end[1])
-            plt.plot(xpoints, ypoints, c=str(colour_range[count]))
+            plt.plot(xpoints, ypoints, c=str(colour_range[count], encoding='utf-8'))
             count += 1
         except IndexError:
             break
