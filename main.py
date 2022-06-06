@@ -1,5 +1,6 @@
 # from dotenv import load_dotenv
 # from weatherlib import weather
+from datetime import datetime
 import numpy as np
 from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
@@ -7,6 +8,9 @@ from colour import Color
 
 
 def main():
+    # Space for fetching configuration settings  # todo create config.json to import settings from
+    save_fig_to_file = False
+
     # Fetch weather data from Met Office for Arts Arkade
     # load_dotenv()
     # weather.get_weather('51.61845146102782', '-3.9425287137489864')
@@ -22,7 +26,7 @@ def main():
     # Generate colour range
     start_colour = Color("#006655")  # hard coded here, but could be taken from a dict linking e.g temps to colours
     end_colour = Color("#0000DD")
-    colour_range = np.fromiter(start_colour.range_to(end_colour, full_distance), dtype='S8', count=full_distance)
+    colour_range = np.fromiter(start_colour.range_to(end_colour, full_distance), dtype='S16', count=full_distance)
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio
@@ -47,8 +51,12 @@ def main():
         except IndexError:
             break
 
-    plt.show()
+    if save_fig_to_file:
+        filename = datetime.now()
+        plt.savefig(f"generated_figures\\fig-{filename.strftime('%d%m%Y_%H%M%S')}.png",
+                    format='png')  # todo get output format from config.json
 
 
 if __name__ == '__main__':
     main()
+    plt.show()
