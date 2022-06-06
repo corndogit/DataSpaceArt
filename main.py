@@ -1,5 +1,5 @@
 # from dotenv import load_dotenv
-# from weather import weather
+# from weatherlib import weather
 # import numpy as np
 from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
