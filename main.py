@@ -13,7 +13,7 @@ def main():
 
     # Generate Hilbert curve segments
     n = 2
-    p = 6  # above p = 7, render time takes ages due to enormous list sizes
+    p = 6  # warning: this increases the number of points (and memory requirements) exponentially!!
     hilbert_curve = HilbertCurve(p, n)
     distances = np.arange(2**(p*n))
     full_distance = len(distances)
