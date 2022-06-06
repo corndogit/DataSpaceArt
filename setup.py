@@ -3,11 +3,10 @@ try:
 except ImportError:
     from distutils.core import setup
 
-req_file = open('requirements.txt')
 requirements = []
-for req in req_file.readlines():
-    requirements.append(req.strip('\n'))
-req_file.close()  # todo tidy this section up
+with open('requirements.txt') as req_file:
+    for req in req_file.readlines():
+        requirements.append(req.strip('\n'))
 
 config = {
     'description' : 'Data-driven pattern generation',
@@ -21,4 +20,4 @@ config = {
     'name': 'DataSpaceArt'
 }
 
-# setup(**config)
+setup(**config)
