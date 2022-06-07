@@ -2,11 +2,13 @@ import os
 import json
 import http.client
 import urllib.parse
+from dotenv import load_dotenv  # for dev purposes only
 
 
-def get_weather(latt, longt):
+def get_weather(config):
     """Fetches the weather data for a given set of coordinates"""
     # connect to Weather DataHub
+    load_dotenv()
     datahub_conn = http.client.HTTPSConnection("rgw.5878-e94b1c46.eu-gb.apiconnect.appdomain.cloud")
 
     datahub_headers = {
@@ -18,8 +20,8 @@ def get_weather(latt, longt):
     datahub_params = urllib.parse.urlencode({
         'excludeParameterMetadata': 'true',
         'includeLocationName': 'true',
-        'latitude': latt,
-        'longitude': longt
+        'latitude': config['coordinates']['latt'],
+        'longitude': config['coordinates']['longt']
     })
 
     datahub_conn.request('GET',
@@ -28,8 +30,12 @@ def get_weather(latt, longt):
                          )
 
     datahub_res = datahub_conn.getresponse()
-    datahub_json = json.loads(datahub_res.read())
+    datahub_data = datahub_res.read()
+    if config["dumpDataToFile"]:
+        with open('weather_dump.json', 'wb') as dumpfile:
+            dumpfile.write(datahub_data)
 
+    datahub_json = json.loads(datahub_data)
     time_series = datahub_json['features'][0]['properties']['timeSeries'][1]
 
     weather_data = {
@@ -41,3 +47,10 @@ def get_weather(latt, longt):
         "MaxUvIndex": time_series['maxUvIndex']
     }
     return weather_data  # dict object
+
+
+if __name__ == "__main__":
+    with open("../config.json") as config_file:
+        config = json.load(config_file)
+        data = get_weather(config['weatherDataProperties'])
+        print("Example request:\n", data)

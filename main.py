@@ -2,18 +2,20 @@
 # from weatherlib import weather
 from datetime import datetime
 import numpy as np
+import json
 from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
 from colour import Color
 
 
-def main():
-    # Space for fetching configuration settings  # todo create config.json to import settings from
-    save_fig_to_file = False
+def main(config):
+    # Separate config.json
+    curve_config = config["hilbertCurveProperties"]
+    # weather_config = config['weatherDataProperties']
 
     # Fetch weather data from Met Office for Arts Arkade
     # load_dotenv()
-    # weather.get_weather('51.61845146102782', '-3.9425287137489864')
+    # weather.get_weather(weather_config)
 
     # Generate Hilbert curve segments
     n = 2
@@ -24,8 +26,8 @@ def main():
     points = np.asarray(hilbert_curve.points_from_distances(distances))  # returns ndarray of [x, y] points of length 'distances'
 
     # Generate colour range
-    start_colour = Color("#006655")  # hard coded here, but could be taken from a dict linking e.g temps to colours
-    end_colour = Color("#0000DD")
+    start_colour = Color("red")  # hard coded here, but could be taken from a dict linking e.g temps to colours
+    end_colour = Color("#5522FF")
     colour_range = np.fromiter(start_colour.range_to(end_colour, full_distance), dtype='S16', count=full_distance)
 
     # Configure subplot, background formatting
@@ -51,12 +53,15 @@ def main():
         except IndexError:
             break
 
-    if save_fig_to_file:
+    if curve_config["saveFigToFile"]:
         filename = datetime.now()
-        plt.savefig(f"generated_figures\\fig-{filename.strftime('%d%m%Y_%H%M%S')}.png",
-                    format='png')  # todo get output format from config.json
+        file_format: str = curve_config["outputFormat"]  # allowed formats: png, svg, pdf
+        plt.savefig(f"generated_figures\\fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
+                    format=file_format)
 
 
 if __name__ == '__main__':
-    main()
+    with open('config.json') as config_file:
+        main(json.load(config_file))
+
     plt.show()

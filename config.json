@@ -1,0 +1,15 @@
+{
+  "hilbertCurveProperties" : {
+    "saveFigToFile": false,
+    "outputFormat": "png"
+  },
+  "weatherDataProperties" : {
+    "coordinates" : {
+    "latt": "51.61845146102782",
+    "longt": "-3.9425287137489864"
+  },
+    "dataHubAPIKey" : "****",
+    "dataHubSecret": "****",
+    "dumpDataToFile" : false
+  }
+}
