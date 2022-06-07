@@ -37,8 +37,8 @@ def main(config):
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
-    px = 1 / plt.rcParams['figure.dpi']
-    fig = plt.figure(figsize=(1000 * px, 1000 * px))
+    px = 1 / curve_config["displayDPI"]
+    fig = plt.figure(figsize=(1000 * px, 1000 * px), dpi=curve_config["displayDPI"])
     ax = fig.add_subplot()
     ax.set_aspect('equal', adjustable='box')
     ax.set_facecolor('#333333')  # todo use weather data to change figure bg colour

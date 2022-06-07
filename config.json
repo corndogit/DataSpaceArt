@@ -1,7 +1,8 @@
 {
   "hilbertCurveProperties" : {
-    "saveFigToFile": false,
-    "outputFormat": "png"
+    "saveFigToFile": true,
+    "outputFormat": "png",
+    "displayDPI": 96
   },
   "weatherDataProperties" : {
     "coordinates" : {
