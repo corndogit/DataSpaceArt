@@ -1,19 +1,16 @@
-import os
 import json
 import http.client
 import urllib.parse
-from dotenv import load_dotenv  # for dev purposes only
 
 
 def get_weather(config):
     """Fetches the weather data for a given set of coordinates"""
     # connect to Weather DataHub
-    load_dotenv()
     datahub_conn = http.client.HTTPSConnection("rgw.5878-e94b1c46.eu-gb.apiconnect.appdomain.cloud")
 
     datahub_headers = {
-        'X-IBM-Client-Id': os.getenv('DATAHUB_API_KEY'),
-        'X-IBM-Client-Secret': os.getenv('DATAHUB_SECRET'),
+        'X-IBM-Client-Id': config["dataHubAPIKey"],
+        'X-IBM-Client-Secret': config["dataHubSecret"],
         'accept': "application/json"
     }
 
@@ -46,11 +43,11 @@ def get_weather(config):
         "WindSpeed": time_series['midday10MWindSpeed'],  # m/s
         "MaxUvIndex": time_series['maxUvIndex']
     }
-    return weather_data  # dict object
+    return weather_data
 
 
 if __name__ == "__main__":
     with open("../config.json") as config_file:
-        config = json.load(config_file)
-        data = get_weather(config['weatherDataProperties'])
+        cfg = json.load(config_file)
+        data = get_weather(cfg['weatherDataProperties'])
         print("Example request:\n", data)
