@@ -68,7 +68,7 @@ def main(config):
 
     if curve_config["saveFigToFile"]:
         filename = datetime.now()
-        file_format: str = curve_config["outputFormat"]  # allowed formats: png, svg, pdf
+        file_format: str = curve_config["outputFormat"].lower()  # allowed formats: png, svg, pdf
         plt.savefig(f"generated_figures/fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
                     format=file_format,
                     pad_inches=0)
