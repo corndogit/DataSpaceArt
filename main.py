@@ -1,6 +1,4 @@
 import os
-
-import matplotlib
 from dotenv import load_dotenv
 # from weatherlib import weather
 from datetime import datetime
@@ -40,11 +38,12 @@ def main(config):
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
     px = 1 / curve_config["displayDPI"]
-    fig = plt.figure(figsize=(600 * px, 600 * px),
+    sizes = curve_config["imageDimensions"]
+    fig = plt.figure(figsize=(sizes["width"] * px, sizes["height"] * px),
                      dpi=curve_config["displayDPI"])
     plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=0, hspace=0)
     ax = fig.add_subplot()
-    ax.set_aspect('equal', adjustable='box')
+    ax.set_aspect('auto', adjustable='box')
     ax.set_facecolor('#333333')  # todo use weather data to change figure bg colour
     plt.tick_params(left=False,
                     bottom=False,

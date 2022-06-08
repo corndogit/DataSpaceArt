@@ -1,11 +1,15 @@
 {
   "hilbertCurveProperties" : {
+    "imageDimensions": {
+      "width": 1000,
+      "height": 1000
+    },
+    "displayDPI": 96,
     "saveFigToFile": true,
-    "outputFormat": "png",
-    "displayDPI": 100
+    "outputFormat": "png"
   },
   "weatherDataProperties" : {
-    "coordinates" : {
+    "coordinates": {
     "latt": "51.61845146102782",
     "longt": "-3.9425287137489864"
   },
