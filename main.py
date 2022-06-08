@@ -1,4 +1,6 @@
 import os
+
+import matplotlib
 from dotenv import load_dotenv
 # from weatherlib import weather
 from datetime import datetime
@@ -38,7 +40,9 @@ def main(config):
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
     px = 1 / curve_config["displayDPI"]
-    fig = plt.figure(figsize=(1000 * px, 1000 * px), dpi=curve_config["displayDPI"])
+    fig = plt.figure(figsize=(600 * px, 600 * px),
+                     dpi=curve_config["displayDPI"])
+    plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=0, hspace=0)
     ax = fig.add_subplot()
     ax.set_aspect('equal', adjustable='box')
     ax.set_facecolor('#333333')  # todo use weather data to change figure bg colour
@@ -56,7 +60,9 @@ def main(config):
             start, end = points[count], points[count + 1]
             xpoints = (start[0], end[0])
             ypoints = (start[1], end[1])
-            plt.plot(xpoints, ypoints, c=str(colour_range[count], encoding='utf-8'))
+            plt.plot(xpoints, ypoints,
+                     color=str(colour_range[count], encoding='utf-8'),
+                     linewidth=2)  # another factor that can be changed by data
             count += 1
         except IndexError:
             break
@@ -66,7 +72,6 @@ def main(config):
         file_format: str = curve_config["outputFormat"]  # allowed formats: png, svg, pdf
         plt.savefig(f"generated_figures/fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
                     format=file_format,
-                    bbox_inches='tight',
                     pad_inches=0)
 
 
