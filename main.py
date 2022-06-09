@@ -6,7 +6,13 @@ import numpy as np
 import json
 from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 from colour import Color
+
+
+def generate_colour_range(start: Color, end: Color, length: int):
+    """Takes two Color objects and generates a colour range, returns a numpy array of colour bytestrings"""
+    return np.fromiter(start.range_to(end, length), dtype='S16', count=length)
 
 
 def main(config):
@@ -27,13 +33,18 @@ def main(config):
     p = 3  # warning: this increases the number of points (and memory requirements) exponentially!!
     hilbert_curve = HilbertCurve(p, n)
     distances = np.arange(2**(p*n))
-    full_distance = len(distances)
     points = np.asarray(hilbert_curve.points_from_distances(distances))  # returns ndarray of [x, y] points of length 'distances'
 
-    # Generate colour range
-    start_colour = Color("red")  # hard coded here, but could be taken from a dict linking e.g temps to colours
-    end_colour = Color("#5522FF")
-    colour_range = np.fromiter(start_colour.range_to(end_colour, full_distance), dtype='S16', count=full_distance)
+    # Generate colour range (line)
+    start_line_colour = Color("red")
+    end_line_colour = Color("#5522FF")
+
+    line_colour_range = generate_colour_range(start_line_colour, end_line_colour, len(distances))
+
+    # Generate colormap (background)
+    start_bg_colour = Color("#333333")
+    end_bg_colour = Color("#E4E4E4")
+    bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 128))])
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
@@ -44,7 +55,6 @@ def main(config):
     plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=0, hspace=0)
     ax = fig.add_subplot()
     ax.set_aspect('auto', adjustable='box')
-    ax.set_facecolor('#333333')  # todo use weather data to change figure bg colour
     plt.tick_params(left=False,
                     bottom=False,
                     labelleft=False,
@@ -60,11 +70,17 @@ def main(config):
             xpoints = (start[0], end[0])
             ypoints = (start[1], end[1])
             plt.plot(xpoints, ypoints,
-                     color=str(colour_range[count], encoding='utf-8'),
+                     color=str(line_colour_range[count], encoding='utf-8'),
                      linewidth=2)  # another factor that can be changed by data
             count += 1
         except IndexError:
             break
+
+    # apply background colormap
+    ax.imshow([[0, 0], [1, 1]],
+              cmap=bg_colormap,
+              interpolation='bicubic',
+              extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
 
     if curve_config["saveFigToFile"]:
         filename = datetime.now()
