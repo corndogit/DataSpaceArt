@@ -42,9 +42,9 @@ def main(config):
     line_colour_range = generate_colour_range(start_line_colour, end_line_colour, len(distances))
 
     # Generate colormap (background)
-    start_bg_colour = Color("#333333")
-    end_bg_colour = Color("#E4E4E4")
-    bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 128))])
+    start_bg_colour = Color("#EE6666")
+    end_bg_colour = Color("#6666EE")
+    bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 256))])
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
@@ -63,21 +63,20 @@ def main(config):
         ax.spines[side].set_visible(False)
 
     # plot segments
-    count = 0
-    for _ in points:
+    linewidth = 2 * (7 / p)
+    for p in range(len(points)):
         try:
-            start, end = points[count], points[count + 1]
+            start, end = points[p], points[p + 1]
             xpoints = (start[0], end[0])
             ypoints = (start[1], end[1])
             plt.plot(xpoints, ypoints,
-                     color=str(line_colour_range[count], encoding='utf-8'),
-                     linewidth=2)  # another factor that can be changed by data
-            count += 1
+                     color=str(line_colour_range[p], encoding='utf-8'),
+                     linewidth=linewidth)
         except IndexError:
             break
 
     # apply background colormap
-    ax.imshow([[0, 0], [1, 1]],
+    ax.imshow([[0, 0], [1, 1]],  # find ways to manipulate shape/direction of the background, maybe with a dict?
               cmap=bg_colormap,
               interpolation='bicubic',
               extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
