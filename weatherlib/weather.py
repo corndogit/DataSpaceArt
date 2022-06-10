@@ -31,8 +31,12 @@ def get_weather(config):
     if config["dumpDataToFile"]:
         with open('weather_dump.json', 'wb') as dumpfile:
             dumpfile.write(datahub_data)
+            print("request dumped to /weatherlib/weather_dump.json")
 
     datahub_json = json.loads(datahub_data)
+    if KeyError:
+        return ": ".join(datahub_json.values())
+
     time_series = datahub_json['features'][0]['properties']['timeSeries'][1]
 
     weather_data = {
