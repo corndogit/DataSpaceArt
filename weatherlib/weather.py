@@ -1,16 +1,10 @@
 import json
 import http.client
 import urllib.parse
-from dotenv import load_dotenv
-import os
+
 
 def get_weather(config):
     """Fetches the weather data for a given set of coordinates"""
-    load_dotenv()  # dev tool: replaces config.json keys with env keys
-    if os.environ["DATAHUB_API_KEY"] and os.environ["DATAHUB_SECRET"]:
-        config["dataHubAPIKey"] = os.getenv("DATAHUB_API_KEY")
-        config["dataHubSecret"] = os.getenv("DATAHUB_SECRET")
-
     # connect to Weather DataHub
     datahub_conn = http.client.HTTPSConnection("rgw.5878-e94b1c46.eu-gb.apiconnect.appdomain.cloud")
 
