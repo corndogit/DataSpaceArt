@@ -83,6 +83,8 @@ def main(config):
               extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
 
     if curve_config["saveFigToFile"]:
+        if not os.path.exists('/generated_figures/'):
+            os.makedirs('/generated_figures/')
         filename = datetime.now()
         file_format: str = curve_config["outputFormat"].lower()  # allowed formats: png, svg, pdf
         plt.savefig(f"generated_figures/fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
