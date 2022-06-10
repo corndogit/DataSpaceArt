@@ -43,9 +43,16 @@ def get_weather(config):
         "SignificantWeatherCode": time_series['daySignificantWeatherCode'],
         "MaxTemperature": time_series['dayUpperBoundMaxTemp'],  # degrees Celsius
         "MinTemperature": time_series['dayLowerBoundMaxTemp'],
-        "ChanceOfPrecipitation": time_series['dayProbabilityOfPrecipitation'],  # %
+        "MeanSeaLevelPressure": time_series['middayMslp'],  # bar
+        "Visibility": time_series['middayVisibility'],  # m
+        "ChanceOfPrecipitation": time_series['dayProbabilityOfPrecipitation'] / 100,  # %
         "WindSpeed": time_series['midday10MWindSpeed'],  # m/s
-        "MaxUvIndex": time_series['maxUvIndex']
+        "WindDirection": time_series['midday10MWindDirection'],  # bearing
+        "RelativeHumidity": time_series['middayRelativeHumidity'] / 100,  # %
+        "MaxUvIndex": time_series['maxUvIndex'],
+        "ProbabilityOfSnow": time_series['dayProbabilityOfSnow'] / 100,  # %
+        "ProbabilityOfHail": time_series['dayProbabilityOfHail'] / 100,  # %
+        "ProbabilityOfSferics": time_series['dayProbabilityOfSferics'] / 100  # %
     }
     return weather_data
 
