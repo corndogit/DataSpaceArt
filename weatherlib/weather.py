@@ -34,10 +34,10 @@ def get_weather(config):
             print("request dumped to /weatherlib/weather_dump.json")
 
     datahub_json = json.loads(datahub_data)
-    if KeyError in datahub_json:
+    try:
+        time_series = datahub_json['features'][0]['properties']['timeSeries'][1]
+    except KeyError:
         return ": ".join(datahub_json.values())
-
-    time_series = datahub_json['features'][0]['properties']['timeSeries'][1]
 
     weather_data = {
         "SignificantWeatherCode": time_series['daySignificantWeatherCode'],
