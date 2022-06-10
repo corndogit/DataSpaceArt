@@ -2,7 +2,7 @@
 A generative art project which generates stylized patterns from data. Written in Python by corndogit for the purpose of
 displaying as an art piece for the Arts Arkade digital arts hub in Swansea.  
 
-![example1](https://corndog.s-ul.eu/1ulBHaVN.png)  
+![fig1](.github/img/fig1.png)  
 
 ## Overview
 DataSpaceArt is a project for generating patterns with parameters which are altered by data. For this project, weather 
@@ -21,7 +21,10 @@ implemented into the generation of the curve yet.
 
 ### Example:  
 
-![example2](https://cdn.discordapp.com/attachments/448112559548268565/982357276864180255/pycharm64_LpY50F8oAb.png)
+![example2](.github/img/fig2.png)  
+
+This example was generated using the hex values #FF0000 through #5522FF for the line, and #EE6666 through #6666EE.
+Currently, ways of utilising weather data to alter these values are being planned.
 
 ## How it works  
 Data comes from a Met Office DataHub API request, returning an JSON containing an extensive
@@ -35,8 +38,6 @@ to apply along the length of the curve, the colour of the background, etc.
 
 More possible applications are being explored currently.
 ## Todo
-- [x] Implement numpy arrays to replace the very long lists created by curves with p > 7
-- [ ] Use data from weather JSON to change colour range of the curve using max/min temperature 
+- [ ] Use data from weather JSON to change colour range of the curve (using max/min temperature for example)
 - [ ] Come up with more ways to change the output 
 - [ ] Plan how to take the output from the program and display it (e.g. on a webpage)
-- [x] Write setup.py script to install dependencies locally
