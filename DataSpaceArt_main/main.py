@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from weather import get_weather
+# from weather import get_weather
+# from colourpalette import line_temperature
 from datetime import datetime
 import numpy as np
 import json
@@ -20,7 +21,7 @@ def main(config):
         weather_config["dataHubAPIKey"] = os.getenv("DATAHUB_API_KEY")
         weather_config["dataHubSecret"] = os.getenv("DATAHUB_SECRET")
 
-    # Fetch weather data from Met Office for Arts Arkade
+    # Fetch weather data from Met Office DataHub API
     # get_weather(weather_config)
 
     # Generate Hilbert curve segments
@@ -28,7 +29,7 @@ def main(config):
     p = 3  # warning: this increases the number of points (and memory requirements) exponentially!!
     hilbert_curve = HilbertCurve(p, n)
     distances = np.arange(2**(p*n))
-    points = np.asarray(hilbert_curve.points_from_distances(distances))  # returns ndarray of [x, y] points of length 'distances'
+    points = np.asarray(hilbert_curve.points_from_distances(distances))  # ndarray of [x, y] points, 'distances' long
 
     # Generate colour range (line)
     start_line_colour = Color("red")
@@ -77,6 +78,7 @@ def main(config):
               interpolation='bicubic',
               extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
 
+    # save figure to file
     if curve_config["saveFigToFile"]:
         if not os.path.exists('../generated_figures/'):
             os.makedirs('../generated_figures/')
