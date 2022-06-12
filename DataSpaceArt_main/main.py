@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-# import weather
+from weather import get_weather
 from datetime import datetime
 import numpy as np
 import json
@@ -8,11 +8,6 @@ from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from colour import Color
-
-
-def generate_colour_range(start: Color, end: Color, length: int):
-    """Takes two Color objects and generates a colour range, returns a numpy array of colour bytestrings"""
-    return np.fromiter(start.range_to(end, length), dtype='S16', count=length)
 
 
 def main(config):
@@ -26,7 +21,7 @@ def main(config):
         weather_config["dataHubSecret"] = os.getenv("DATAHUB_SECRET")
 
     # Fetch weather data from Met Office for Arts Arkade
-    # weather.get_weather(weather_config)
+    # get_weather(weather_config)
 
     # Generate Hilbert curve segments
     n = 2
@@ -38,8 +33,9 @@ def main(config):
     # Generate colour range (line)
     start_line_colour = Color("red")
     end_line_colour = Color("#5522FF")
-
-    line_colour_range = generate_colour_range(start_line_colour, end_line_colour, len(distances))
+    line_colour_range = np.fromiter(start_line_colour.range_to(end_line_colour, len(distances)),
+                                    dtype='S16',
+                                    count=len(distances))
 
     # Generate colormap (background)
     start_bg_colour = Color("#EE6666")
