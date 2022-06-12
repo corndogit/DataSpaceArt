@@ -29,9 +29,9 @@ def get_weather(config):
     datahub_res = datahub_conn.getresponse()
     datahub_data = datahub_res.read()
     if config["dumpDataToFile"]:
-        with open('weather_dump.json', 'wb') as dumpfile:
+        with open('../bin/weather_dump.json', 'wb') as dumpfile:
             dumpfile.write(datahub_data)
-            print("request dumped to /weatherlib/weather_dump.json")
+            print("request dumped to /bin/weather_dump.json")
 
     datahub_json = json.loads(datahub_data)
     try:

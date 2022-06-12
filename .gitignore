@@ -149,4 +149,4 @@ cython_debug/
 
 # Project specific
 generated_figures/
-/weatherlib/*.json
+

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-# from weatherlib import weather
+# import weather
 from datetime import datetime
 import numpy as np
 import json
@@ -82,17 +82,17 @@ def main(config):
               extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
 
     if curve_config["saveFigToFile"]:
-        if not os.path.exists('/generated_figures/'):
-            os.makedirs('/generated_figures/')
+        if not os.path.exists('../generated_figures/'):
+            os.makedirs('../generated_figures/')
         filename = datetime.now()
         file_format: str = curve_config["outputFormat"].lower()  # allowed formats: png, svg, pdf
-        plt.savefig(f"generated_figures/fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
+        plt.savefig(f"../generated_figures/fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
                     format=file_format,
                     pad_inches=0)
 
 
 if __name__ == '__main__':
-    with open('config.json') as config_file:
+    with open('../config.json') as config_file:
         main(json.load(config_file))
 
     plt.show()
