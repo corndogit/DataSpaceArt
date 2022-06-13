@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 # from weather import get_weather
-# from colourpalette import line_temperature
+import colourpalette as cpt
 from datetime import datetime
 import numpy as np
 import json
@@ -22,7 +22,7 @@ def main(config):
         weather_config["dataHubSecret"] = os.getenv("DATAHUB_SECRET")
 
     # Fetch weather data from Met Office DataHub API
-    # get_weather(weather_config)
+    # input_data: dict = get_weather(weather_config)
 
     # Generate Hilbert curve segments
     n = 2
@@ -32,15 +32,17 @@ def main(config):
     points = np.asarray(hilbert_curve.points_from_distances(distances))  # ndarray of [x, y] points, 'distances' long
 
     # Generate colour range (line)
-    start_line_colour = Color("red")
-    end_line_colour = Color("#5522FF")
+    # start_line_colour = Color(cpt.line_temperature(round(input_data["MaxTemperature"])))
+    # end_line_colour = Color(cpt.line_temperature(round(input_data["MinTemperature"])))
+    start_line_colour = Color(cpt.line_temperature(19))
+    end_line_colour = Color(cpt.line_temperature(12))
     line_colour_range = np.fromiter(start_line_colour.range_to(end_line_colour, len(distances)),
                                     dtype='S16',
                                     count=len(distances))
 
     # Generate colormap (background)
-    start_bg_colour = Color("#EE6666")
-    end_bg_colour = Color("#6666EE")
+    start_bg_colour = Color("#eee")
+    end_bg_colour = Color("#ccc")
     bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 256))])
 
     # Configure subplot, background formatting
