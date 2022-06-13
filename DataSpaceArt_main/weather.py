@@ -62,5 +62,8 @@ if __name__ == "__main__":
         cfg = json.load(config_file)
         data = get_weather(cfg['weatherDataProperties'])
         print("Example request:")
-        for k, v in data.items():
-            print(f"{k}: {v}")
+        try:
+            for k, v in data.items():
+                print(f"{k}: {v}")
+        except AttributeError:
+            print(data)
