@@ -41,8 +41,8 @@ def get_weather(config):
 
     weather_data = {
         "SignificantWeatherCode": time_series['daySignificantWeatherCode'],
-        "MaxTemperature": time_series['dayUpperBoundMaxTemp'],  # degrees Celsius
-        "MinTemperature": time_series['dayLowerBoundMaxTemp'],
+        "MaxTemperature": time_series['dayMaxScreenTemperature'],  # degrees Celsius
+        "MinTemperature": time_series['nightMinScreenTemperature'],
         "MeanSeaLevelPressure": time_series['middayMslp'],  # bar
         "Visibility": time_series['middayVisibility'],  # m
         "ChanceOfPrecipitation": time_series['dayProbabilityOfPrecipitation'] / 100,  # %
