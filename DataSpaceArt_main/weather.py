@@ -61,4 +61,6 @@ if __name__ == "__main__":
     with open("../config.json") as config_file:
         cfg = json.load(config_file)
         data = get_weather(cfg['weatherDataProperties'])
-        print("Example request:\n", data)
+        print("Example request:")
+        for k, v in data.items():
+            print(f"{k}: {v}")
