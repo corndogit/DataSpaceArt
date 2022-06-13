@@ -149,4 +149,5 @@ cython_debug/
 
 # Project specific
 generated_figures/
+/bin/*.json
 
