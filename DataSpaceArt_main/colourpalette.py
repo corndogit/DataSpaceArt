@@ -30,7 +30,10 @@ def bg_direction(direction):
     }
     directions = [k for k in coords.keys()]
     idx = directions[int((direction / 45) % 8)]
-    shape[coords[idx]] += 1
+    if idx in ['N', 'E', 'S', 'W']:
+        shape[coords[idx]] += 1.5
+    else:
+        shape[coords[idx]] += 1
     return shape
 
 
