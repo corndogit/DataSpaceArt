@@ -2,13 +2,13 @@ from colour import Color
 
 
 def line_temperature(temperature: int):
-    min_temp = -23
-    max_temp = 38
-    colours = list(Color('#cc0199').range_to('#100001', max_temp - min_temp + 1))
+    min_temp = -10
+    max_temp = 35
+    colours = list(Color('#11e').range_to('#e11', max_temp - min_temp + 1))
     if temperature < min_temp:
         return '#cc0199'  # magenta
     elif temperature > max_temp:
-        return '#100001'  # dark red
+        return '#69020b'  # dark red
     else:
         for k, v in enumerate(colours, min_temp):
             if temperature == k:
