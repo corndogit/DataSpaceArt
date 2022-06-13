@@ -1,4 +1,5 @@
 from colour import Color
+import numpy as np
 
 
 def line_temperature(temperature: int):
@@ -13,6 +14,24 @@ def line_temperature(temperature: int):
         for k, v in enumerate(colours, min_temp):
             if temperature == k:
                 return str(v)
+
+
+def bg_direction(direction):
+    shape = np.zeros((3, 3))
+    coords = {
+        'N': (0, 1),
+        'NE': (0, 2),
+        'E': (1, 2),
+        'SE': (2, 2),
+        'S': (2, 1),
+        'SW': (2, 0),
+        'W': (1, 0),
+        'NW': (0, 0)
+    }
+    directions = [k for k in coords.keys()]
+    idx = directions[int((direction / 45) % 8)]
+    shape[coords[idx]] += 1
+    return shape
 
 
 if __name__ == '__main__':

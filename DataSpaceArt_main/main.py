@@ -42,8 +42,8 @@ def main(config):
 
     # Generate colormap (background)
     start_bg_colour = Color("#eee")
-    end_bg_colour = Color("#ccc")
-    bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 256))])
+    end_bg_colour = Color("#222")
+    bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 512))])
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
@@ -75,7 +75,9 @@ def main(config):
             break
 
     # apply background colormap
-    ax.imshow([[0, 0], [1, 1]],  # find ways to manipulate shape/direction of the background, maybe with a dict?
+    # bg_shape = cpt.bg_direction(input_data["WindDirection"])
+    bg_shape = cpt.bg_direction(112)
+    ax.imshow(bg_shape.reshape(3, 3),
               cmap=bg_colormap,
               interpolation='bicubic',
               extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
