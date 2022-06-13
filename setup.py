@@ -1,7 +1,14 @@
+import os
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
+
+# create dirs not included in GitHub repo
+if not os.path.exists('generated_figures/'):
+    os.makedirs('generated_figures/')
+if not os.path.exists('bin/'):
+    os.makedirs('bin/')
 
 requirements = []
 with open('requirements.txt') as req_file:
@@ -9,7 +16,7 @@ with open('requirements.txt') as req_file:
         requirements.append(req.strip('\n'))
 
 config = {
-    'description' : 'Data-driven pattern generation',
+    'description': 'Data-driven pattern generation',
     'author': 'corndogit',
     'url': 'https://github.com/corndogit/DataSpaceArt',
     'author_email': 'contact@sferic.me',
