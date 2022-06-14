@@ -4,6 +4,8 @@ import numpy as np
 
 
 def get_p_from_windspeed(windspeed):
+    if windspeed == 0:
+        return 3
     p = floor(np.log(windspeed) + 2)
     return min(max(p, 3), 8)
 
