@@ -26,6 +26,7 @@ def main(config):
 
     # Generate Hilbert curve segments
     n = 2
+    # p = cpt.get_p_from_windspeed(input_data['WindSpeed'])
     p = 3  # warning: this increases the number of points (and memory requirements) exponentially!!
     hilbert_curve = HilbertCurve(p, n)
     distances = np.arange(2**(p*n))

@@ -46,7 +46,7 @@ def get_weather(config):
         "MeanSeaLevelPressure": time_series['middayMslp'],  # bar
         "Visibility": time_series['middayVisibility'],  # m
         "ChanceOfPrecipitation": time_series['dayProbabilityOfPrecipitation'] / 100,  # %
-        "WindSpeed": time_series['midday10MWindSpeed'],  # m/s
+        "WindSpeed": time_series['midday10MWindSpeed'] / 0.447,  # mph
         "WindDirection": time_series['midday10MWindDirection'],  # bearing
         "RelativeHumidity": time_series['middayRelativeHumidity'] / 100,  # %
         "MaxUvIndex": time_series['maxUvIndex'],
