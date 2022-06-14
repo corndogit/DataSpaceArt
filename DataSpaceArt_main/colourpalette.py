@@ -1,5 +1,11 @@
 from colour import Color
+from math import floor
 import numpy as np
+
+
+def get_p_from_windspeed(windspeed):
+    p = floor(np.log(windspeed) + 2)
+    return min(max(p, 3), 8)
 
 
 def line_temperature(temperature: int):
@@ -29,7 +35,7 @@ def bg_direction(direction):
         'NW': (0, 0)
     }
     directions = [k for k in coords.keys()]
-    idx = directions[int((direction / 45) % 8)]
+    idx = directions[floor((direction / 45) % 8)]
     if idx in ['N', 'E', 'S', 'W']:
         shape[coords[idx]] += 1.5
     else:
