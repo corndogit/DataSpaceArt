@@ -40,7 +40,7 @@ def get_weather(config):
         return ": ".join(datahub_json.values())
 
     weather_data = {
-        "SignificantWeatherCode": time_series['daySignificantWeatherCode'],
+        "SignificantWeatherCode": str(time_series['daySignificantWeatherCode']),
         "MaxTemperature": time_series['dayMaxScreenTemperature'],  # degrees Celsius
         "MinTemperature": time_series['nightMinScreenTemperature'],
         "MeanSeaLevelPressure": time_series['middayMslp'],  # bar
