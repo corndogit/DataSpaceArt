@@ -28,7 +28,7 @@ def main(config):
     n = 2
     # p = cpt.get_p_from_windspeed(input_data['WindSpeed'])
     p = cpt.get_p_from_windspeed(5)
-    hilbert_curve = HilbertCurve(p, n)
+    hilbert_curve = HilbertCurve(p, n, n_procs=curve_config['processCount'])
     distances = np.arange(2**(p*n))
     points = np.asarray(hilbert_curve.points_from_distances(distances))
 
@@ -62,7 +62,7 @@ def main(config):
         ax.spines[side].set_visible(False)
 
     # plot segments
-    linewidth = 2 * (7 / p)
+    linewidth = curve_config['baseLinewidth'] * (7 / p)
     for p in range(len(points)):
         try:
             start, end = points[p], points[p + 1]

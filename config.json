@@ -1,9 +1,11 @@
 {
   "hilbertCurveProperties" : {
+    "processCount": -1,
     "imageDimensions": {
       "width": 1000,
       "height": 1000
     },
+    "baseLinewidth": 2,
     "displayDPI": 96,
     "saveFigToFile": true,
     "outputFormat": "png"
