@@ -2,12 +2,12 @@
 
 clear = ('#5c92cb', '#b3f8fb')
 cloudy = ('#9a9e8f', '#f2f2f2')
-mist = ('#7fa0c3', '#a9aaab')
+mist = ('#b0b9d9', '#e5f2fd')
 light_rain = ('#4b529e', '#b8c4ef')
-heavy_rain = ('#2217ed', '#00b2ff')
+heavy_rain = ('#2427cc', '#00b2ff')
 sleet_hail = ('#eaeaea', '#5aa4c4')
 snow = ('#66dbff', '#f4f4f4')
-thunder = ('#fff95b', '#e138ff')
+thunder = ('#e138ff', '#fff95b')
 
 code_to_colours = {
     'NA': clear,
