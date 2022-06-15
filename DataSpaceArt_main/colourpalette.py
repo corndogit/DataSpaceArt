@@ -5,37 +5,49 @@ import weathercodes
 
 
 def get_p_from_windspeed(windspeed: float or int):
-    """Returns a value for the order of the Hilbert curve from natural log of the wind speed. Ranges from 3 to 8"""
+    """Returns a value for the order of the Hilbert curve from natural log of the wind speed.
+
+     Ranges from 3 to 8 for the sake of keeping the pattern interesting when the wind is low,
+     and to prevent huge memory usage caused with a value beyond 8.
+     """
+    MIN_ORDER = 3
+    MAX_ORDER = 8
     if windspeed == 0:
-        return 3
+        return MIN_ORDER
     p = floor(np.log(windspeed) + 2)
-    return min(max(p, 3), 8)
+    return min(max(p, MIN_ORDER), MAX_ORDER)
 
 
 def line_temperature(temperature: int):
     """Finds a colour hex value for a specific temperature, returns a string."""
-    min_temp = -10
-    max_temp = 35
-    colours = list(Color('#11e').range_to('#e11', max_temp - min_temp + 1))
-    if temperature < min_temp:
+    MIN_TEMP = -10
+    MAX_TEMP = 35
+    colours = list(Color('#11e').range_to('#e11', MAX_TEMP - MIN_TEMP + 1))  # + 1 to prevent IndexError
+    if temperature < MIN_TEMP:
         return '#cc0199'  # magenta
-    elif temperature > max_temp:
+    elif temperature > MAX_TEMP:
         return '#69020b'  # dark red
     else:
-        for k, v in enumerate(colours, min_temp):
+        for k, v in enumerate(colours, MIN_TEMP):
             if temperature == k:
                 return str(v)
 
 
 def bg_color_list(weathercode: str):
     """Returns a list of RGB values to use with ListedColormap"""
+    COLORMAP_LENGTH = 512
     colours = weathercodes.code_to_colours[weathercode]
     start_bg_colour = Color(colours[0])
-    return [colr.rgb for colr in list(start_bg_colour.range_to(colours[1], 512))]
+    return [colr.rgb for colr in list(start_bg_colour.range_to(colours[1], COLORMAP_LENGTH))]
 
 
 def bg_direction(direction: int):
-    """Calculates a direction to begin gradient from. Returns a 3x3 scalar image to use with plt.imshow()"""
+    """Calculates a direction to begin gradient from. Converts bearing to an 8-way compass direction, and
+    returns a corresponding 3x3 scalar image to use with plt.imshow().
+
+    1 is added to inter-cardinal positions and 1.5 is added to cardinals, as this provides a more complete
+    colour gradient for the cardinal positions in practice.
+    """
     shape = np.zeros((3, 3))
     coords = {
         'N': (0, 1),
