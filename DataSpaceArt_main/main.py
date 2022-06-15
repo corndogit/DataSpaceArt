@@ -27,10 +27,10 @@ def main(config):
     # Generate Hilbert curve segments
     n = 2
     # p = cpt.get_p_from_windspeed(input_data['WindSpeed'])
-    p = 3  # warning: this increases the number of points (and memory requirements) exponentially!!
+    p = cpt.get_p_from_windspeed(5)
     hilbert_curve = HilbertCurve(p, n)
     distances = np.arange(2**(p*n))
-    points = np.asarray(hilbert_curve.points_from_distances(distances))  # ndarray of [x, y] points, 'distances' long
+    points = np.asarray(hilbert_curve.points_from_distances(distances))
 
     # Generate colour range (line)
     # start_line_colour = Color(cpt.line_temperature(round(input_data["MaxTemperature"])))
@@ -42,9 +42,8 @@ def main(config):
                                     count=len(distances))
 
     # Generate colormap (background)
-    start_bg_colour = Color("#eee")
-    end_bg_colour = Color("#222")
-    bg_colormap = ListedColormap([colr.rgb for colr in list(start_bg_colour.range_to(end_bg_colour, 512))])
+    # bg_colormap = ListedColormap(cpt.bg_color_list(input_data['SignificantWeatherCode']))
+    bg_colormap = ListedColormap(cpt.bg_color_list('2'))
 
     # Configure subplot, background formatting
     # | Removes all axis labels, forces 1:1 aspect ratio, sets size
@@ -78,7 +77,7 @@ def main(config):
     # apply background colormap
     # bg_shape = cpt.bg_direction(input_data["WindDirection"])
     bg_shape = cpt.bg_direction(112)
-    ax.imshow(bg_shape.reshape(3, 3),
+    ax.imshow(bg_shape,
               cmap=bg_colormap,
               interpolation='bicubic',
               extent=plt.xlim() + plt.ylim(), vmin=0, vmax=1)
