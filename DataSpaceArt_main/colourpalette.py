@@ -59,7 +59,7 @@ def bg_direction(direction: int):
         'W': (1, 0),
         'NW': (0, 0)
     }
-    directions = [k for k in coords.keys()]
+    directions = list(coords.keys())
     idx = directions[floor((direction / 45) % 8)]
     if idx in ['N', 'E', 'S', 'W']:
         shape[coords[idx]] += 1.5
