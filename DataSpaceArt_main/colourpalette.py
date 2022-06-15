@@ -10,35 +10,35 @@ def get_p_from_windspeed(windspeed: float or int):
      Ranges from 3 to 8 for the sake of keeping the pattern interesting when the wind is low,
      and to prevent huge memory usage caused with a value beyond 8.
      """
-    MIN_ORDER = 3
-    MAX_ORDER = 8
+    min_order = 3
+    max_order = 8
     if windspeed == 0:
-        return MIN_ORDER
+        return min_order
     p = floor(np.log(windspeed) + 2)
-    return min(max(p, MIN_ORDER), MAX_ORDER)
+    return min(max(p, min_order), max_order)
 
 
 def line_temperature(temperature: int):
     """Finds a colour hex value for a specific temperature, returns a string."""
-    MIN_TEMP = -10
-    MAX_TEMP = 35
-    colours = list(Color('#11e').range_to('#e11', MAX_TEMP - MIN_TEMP + 1))  # + 1 to prevent IndexError
-    if temperature < MIN_TEMP:
+    min_temp = -10
+    max_temp = 35
+    colours = list(Color('#11e').range_to('#e11', max_temp - min_temp + 1))  # + 1 to prevent IndexError
+    if temperature < min_temp:
         return '#cc0199'  # magenta
-    elif temperature > MAX_TEMP:
+    elif temperature > max_temp:
         return '#69020b'  # dark red
     else:
-        for k, v in enumerate(colours, MIN_TEMP):
+        for k, v in enumerate(colours, min_temp):
             if temperature == k:
                 return str(v)
 
 
 def bg_color_list(weathercode: str):
     """Returns a list of RGB values to use with ListedColormap"""
-    COLORMAP_LENGTH = 512
+    colormap_length = 512
     colours = weathercodes.code_to_colours[weathercode]
     start_bg_colour = Color(colours[0])
-    return [colr.rgb for colr in list(start_bg_colour.range_to(colours[1], COLORMAP_LENGTH))]
+    return [colr.rgb for colr in list(start_bg_colour.range_to(colours[1], colormap_length))]
 
 
 def bg_direction(direction: int):
@@ -59,7 +59,7 @@ def bg_direction(direction: int):
         'W': (1, 0),
         'NW': (0, 0)
     }
-    directions = [k for k in coords.keys()]
+    directions = list(coords.keys())
     idx = directions[floor((direction / 45) % 8)]
     if idx in ['N', 'E', 'S', 'W']:
         shape[coords[idx]] += 1.5
