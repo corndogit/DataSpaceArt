@@ -1,7 +1,7 @@
 from colour import Color
 from math import floor
 import numpy as np
-import DataSpaceArt_main.weathercodes as weathercodes
+import DataSpaceArt_main.weathercodes as wc
 
 
 def get_p_from_windspeed(windspeed: float or int):
@@ -36,7 +36,7 @@ def line_temperature(temperature: int):
 def bg_color_list(weathercode: str):
     """Returns a list of RGB values to use with ListedColormap"""
     colormap_length = 512
-    colours = weathercodes.code_to_colours[weathercode]
+    colours = wc.code_to_colours[weathercode]
     start_bg_colour = Color(colours[0])
     return [colr.rgb for colr in list(start_bg_colour.range_to(colours[1], colormap_length))]
 
