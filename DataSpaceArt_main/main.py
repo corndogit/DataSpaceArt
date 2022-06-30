@@ -101,13 +101,18 @@ def main(config):
     if curve_config['showFigImage']:
         img.show()
 
-    # optional: save figure to file
+    # optional: save figure and/or data to file
+    filename = datetime.now().strftime('%d%m%Y_%H%M%S')
     if curve_config["saveFigToFile"]:
         if not os.path.exists('../generated_figures/'):
             os.makedirs('../generated_figures/')
-        filename = datetime.now()
-        img.save(f"../generated_figures/fig-{filename.strftime('%d%m%Y_%H%M%S')}.{file_format}",
+        img.save(f"../generated_figures/fig-{filename}.{file_format}",
                  format=file_format)
+
+    if curve_config["saveDataToFile"]:
+        with open(f"../generated_figures/fig-{filename}.txt", 'w') as datafile:
+            for k, v in input_data.items():
+                datafile.write(f"{k}: {v}\n")
 
 
 if __name__ == '__main__':

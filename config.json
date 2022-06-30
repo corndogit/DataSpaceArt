@@ -9,6 +9,7 @@
     "displayDPI": 96,
     "showFigImage": true,
     "saveFigToFile": true,
+    "saveDataToFile": true,
     "outputFormat": "png"
   },
   "weatherDataProperties" : {
@@ -19,6 +20,6 @@
     "dataHubAPIKey" : "****",
     "dataHubSecret": "****",
     "printDataToConsole": true,
-    "dumpDataToFile" : false
+    "dumpJSONDataToFile": false
   }
 }
