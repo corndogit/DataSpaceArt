@@ -30,8 +30,8 @@ def get_weather(config):
     datahub_res = datahub_conn.getresponse()
     datahub_data = datahub_res.read()
     if config["dumpDataToFile"]:
-        if not os.path.exists('bin/'):
-            os.makedirs('bin/')
+        if not os.path.exists('../bin/'):
+            os.makedirs('../bin/')
         with open('../bin/weather_dump.json', 'wb') as dumpfile:
             dumpfile.write(datahub_data)
             print("request dumped to /bin/weather_dump.json")
