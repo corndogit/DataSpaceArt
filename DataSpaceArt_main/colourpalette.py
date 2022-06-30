@@ -1,7 +1,7 @@
 from colour import Color
 from math import floor
 import numpy as np
-import weathercodes
+import DataSpaceArt_main.weathercodes as weathercodes
 
 
 def get_p_from_windspeed(windspeed: float or int):
