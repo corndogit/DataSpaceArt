@@ -1,18 +1,22 @@
 # DataSpaceArt
-A generative art project which generates stylized patterns from data. Written in Python by corndogit for the purpose of
-displaying as an art piece for the Arts Arkade digital arts hub in Swansea.  
-
-![fig1](.github/img/fig1.png)  
-
-## Overview
-DataSpaceArt is a project for generating patterns with parameters which are altered by data. For this project, weather 
+DataSpaceArt is a project for generating patterns with parameters which are altered by weather data. For this project, weather 
 data from the Met Office DataHub API is used to change the parameters of the Hilbert curve, such as colour range for the curve,
 length, background colour, etc.    
 
 The aim of the project is to turn any type of quantitative data into a meaningful visual representation. With weather as
-the choice of data, the goal is to generate a curve for each day of the month, using the daily weather data for Swansea.
-This will then be displayed at Arts Arkade, the digital arts hub in the city centre. While the project has been created for use 
+the choice of data, the goal is to generate a curve for each day of the month, using the daily weather data for Swansea. While the project has been created for use 
 within Swansea in mind, the settings are completely configurable and work for any location in the world covered by Met Office's Site Specific forecast.
+
+## Exhibition
+DataSpaceArt will be displayed in a retail unit in the Swansea city centre! The exhibition showcases a collection of patterns
+that were generated from July to December 2022 and capture a variety of unusual weather types, such as the hottest
+recorded day of the year, coldest day of the year and a day where a lightning storm was captured in the data! If you want
+a hint as to which one, it's the one that stands out the most...  
+
+The exhibition lasts for a few weeks and can be found on Bellevue Way, just around the corner from The Dragon hotel.
+
+<img src=".github/img/exhib2.jpg" alt="Exhibition from outside" width="700"/>
+<img src=".github/img/exhib1.jpg" alt="Exhibition on inside" width="700"/>
 
 ## Usage 
 Currently, the project has only been tested in Python 3.10.x, so it is recommended that you install this.  
