@@ -14,12 +14,11 @@
   },
   "weatherDataProperties" : {
     "coordinates": {
-    "latt": "51.61845146102782",
-    "longt": "-3.9425287137489864"
+      "latt": "51.61845146102782",
+      "longt": "-3.9425287137489864"
   },
-    "dataHubAPIKey" : "****",
-    "dataHubSecret": "****",
-    "printDataToConsole": true,
+    "dataHubAPIKey" : "",
+    "printDataToConsole": false,
     "dumpJSONDataToFile": false
   }
 }

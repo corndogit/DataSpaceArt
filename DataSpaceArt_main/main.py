@@ -2,7 +2,7 @@ import os
 import io
 from PIL import Image
 from dotenv import load_dotenv
-from weather import get_weather
+from metoffice_weather_cli import weather
 import colourpalette as cpt
 from datetime import datetime
 import numpy as np
@@ -18,13 +18,14 @@ def main(config):
     curve_config = config["hilbertCurveProperties"]
     weather_config = config['weatherDataProperties']
 
-    load_dotenv()  # if .env is used, overwrite config.json with API key and secret
-    if os.environ["DATAHUB_API_KEY"] and os.environ["DATAHUB_SECRET"]:
+    load_dotenv()  # if .env is used, overwrite config.json with API key
+    if os.environ["DATAHUB_API_KEY"]:
         weather_config["dataHubAPIKey"] = os.getenv("DATAHUB_API_KEY")
-        weather_config["dataHubSecret"] = os.getenv("DATAHUB_SECRET")
 
     # Fetch weather data from Met Office DataHub API, optionally printing result
-    input_data: dict = get_weather(weather_config)
+    latt = float(weather_config['coordinates']['latt'])
+    longt = float(weather_config['coordinates']['longt'])
+    input_data: dict = weather.get_weather_info("Swansea", "UK", latt, longt)
     if weather_config['printDataToConsole']:
         print("Input data log:")
         for k, v in input_data.items():
