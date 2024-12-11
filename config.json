@@ -10,7 +10,7 @@
     "showFigImage": false,
     "saveFigToFile": true,
     "saveDataToFile": true,
-    "saveDirectory": ".",
+    "outputDirectory": "generated_figures",
     "outputFormat": "png"
   },
   "weatherDataProperties" : {

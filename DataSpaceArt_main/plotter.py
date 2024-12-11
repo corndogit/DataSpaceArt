@@ -54,16 +54,17 @@ class HilberCurvePlotter:
         if self.curve_config['showFigImage']:
             img.show()
 
-        # optional: save figure and/or data to file
         filename = datetime.now().strftime('%d%m%Y_%H%M%S')
+        output_directory = self.curve_config["outputDirectory"]
+
         if self.curve_config["saveFigToFile"]:
-            if not os.path.exists('../generated_figures/'):
-                os.makedirs('../generated_figures/')
-            img.save(f"../generated_figures/fig-{filename}.{file_format}",
+            if not os.path.exists(output_directory):
+                os.makedirs(output_directory)
+            img.save(f"{output_directory}/fig-{filename}.{file_format}",
                     format=file_format)
 
         if self.curve_config["saveDataToFile"]:
-            with open(f"../generated_figures/fig-{filename}.txt", 'w') as datafile:
+            with open(f"{output_directory}/fig-{filename}.txt", 'w') as datafile:
                 for k, v in self.input_data.items():
                     datafile.write(f"{k}: {v}\n")
 
