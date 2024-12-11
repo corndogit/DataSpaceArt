@@ -7,12 +7,15 @@
     },
     "baseLinewidth": 2,
     "displayDPI": 96,
-    "showFigImage": true,
+    "showFigImage": false,
     "saveFigToFile": true,
     "saveDataToFile": true,
+    "saveDirectory": ".",
     "outputFormat": "png"
   },
   "weatherDataProperties" : {
+    "city": "Swansea",
+    "country": "UK",
     "coordinates": {
       "latt": "51.61845146102782",
       "longt": "-3.9425287137489864"

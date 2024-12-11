@@ -1,31 +1,22 @@
 import os
 import io
 from PIL import Image
-from dotenv import load_dotenv
 from metoffice_weather_cli import weather
-import colourpalette as cpt
 from datetime import datetime
 import numpy as np
-import json
 from hilbertcurve.hilbertcurve import HilbertCurve
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from colour import Color
 
+import colourpalette as cpt
+from helpers import load_config, get_weather_data
 
-def main(config):
-    # Separate config.json
-    curve_config = config["hilbertCurveProperties"]
-    weather_config = config['weatherDataProperties']
 
-    load_dotenv()  # if .env is used, overwrite config.json with API key
-    if os.environ["DATAHUB_API_KEY"]:
-        weather_config["dataHubAPIKey"] = os.getenv("DATAHUB_API_KEY")
+def main():
+    curve_config, weather_config = load_config('config.json')
 
-    # Fetch weather data from Met Office DataHub API, optionally printing result
-    latt = float(weather_config['coordinates']['latt'])
-    longt = float(weather_config['coordinates']['longt'])
-    input_data: dict = weather.get_weather_info("Swansea", "UK", latt, longt)
+    input_data = get_weather_data(weather_config)
     if weather_config['printDataToConsole']:
         print("Input data log:")
         for k, v in input_data.items():
@@ -117,5 +108,4 @@ def main(config):
 
 
 if __name__ == '__main__':
-    with open('../config.json') as config_file:
-        main(json.load(config_file))
+    main()
